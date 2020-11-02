@@ -19,7 +19,7 @@ public class JavaTesterController {
         float height = 1.83f;
         String club = "Juventos";
         if (isFan) {
-            return "Done by " + name + " with number " + number + "\n" + "I am " + height + " tall and I am fan of football.\nMy favourite club is " + club + ".";
+            return "Done by " + name + " with number " + number + ".\n" + "I am " + height + " tall and I am fan of football.\nMy favourite club is " + club + ".";
         }
         else if (!isFan) {
             return "Done by " + name + " with number " + number + "\n" + "I am " + height + " tall  and not a fan of football.";
