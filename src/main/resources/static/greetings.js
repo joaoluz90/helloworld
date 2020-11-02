@@ -1,7 +1,7 @@
 window.onload = async function() {
     try {
         let res = await $.ajax( {
-            url: "/api/greeter",
+            url: "/api/java/tester/",
             method: "get",
             dataType: "text"
         });
@@ -13,7 +13,7 @@ async function greeting() {
     try {
         let name = document.getElementById("name").value;
         let res = await $.ajax({
-            url: "/api/greeter/"+name,
+            url: "/api/java/tester/"+name,
             method: "get",
             dataType: "text"
         });
