@@ -15,7 +15,7 @@ public class JavaTesterController {
         logger.info("Deploying personalized information");
         boolean isFan = true;
         String name = "João Luz";
-        float number = 20190798f;
+        int number = 20190798;
         float height = 1.83f;
         String club = "Juventos";
         if (isFan) {
