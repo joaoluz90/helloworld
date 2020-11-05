@@ -23,5 +23,4 @@ public class GreeterController {
         return "Hello "+name;
     }
    
-
 }
