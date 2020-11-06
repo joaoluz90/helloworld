@@ -22,11 +22,75 @@ public class JavaTesterController {
 
     private ArrayList<CurricularUnit> units = new ArrayList<CurricularUnit>();
     
-    @PostMapping(path = "/units", produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/units", produces= MediaType.APPLICATION_JSON_VALUE)    // http://localhost:8080/api/java/tester/units
     public CurricularUnit saveUnit(@RequestBody CurricularUnit unit) {
         logger.info("Added unit " + unit.getName());
         units.add(unit);
         return unit;
+    }
+
+    @GetMapping(path = "/units",
+    produces= MediaType.APPLICATION_JSON_VALUE)                                  // http://localhost:8080/api/java/tester/units
+    public ArrayList<CurricularUnit> getUnits() {
+        logger.info("Get " + units.size() + " Units");
+        return units;
+    } 
+
+    @GetMapping(path = "/average",                                //http://localhost:8080/api/java/tester/average
+    produces= MediaType.APPLICATION_JSON_VALUE)
+    public double calcAverage() {
+        double total = 0;
+        for(int i=0; i < units.size(); i++)
+            total += units.get(i).getGrade();
+        return total/units.size();
+    }
+
+    @GetMapping(path = "/max",                                //http://localhost:8080/api/java/tester/max
+    produces= MediaType.APPLICATION_JSON_VALUE)
+    public double calcMax() {
+        double max = 0;
+        for(int i=0; i < units.size(); i++)
+            if(units.get(i).getGrade() > max){
+                max = units.get(i).getGrade();
+            }
+        return max;
+    }
+
+    @GetMapping(path = "/grade",                                //http://localhost:8080/api/java/tester/grade
+    produces= MediaType.APPLICATION_JSON_VALUE)
+    public double calcGrade(){
+        String name = units.get(units.size()-1).getName();      //calculates the grade for the last UC name given 
+        double finalGrade = 0;
+        for(int i=0; i < units.size(); i++)
+            if(units.get(i).getName().equals(name)){
+                finalGrade = units.get(i).getGrade();
+            }
+        return finalGrade;
+    }
+
+    @GetMapping(path = "/semester",                                //http://localhost:8080/api/java/tester/semester
+    produces= MediaType.APPLICATION_JSON_VALUE)
+    public String calcSemester(){
+        int givenSemester = 3;                          //calculates the number of UCs given for exmaple the 3rd semester
+        String finalUcs = "";
+        for(int i=0; i < units.size(); i++)
+            if(units.get(i).getSemester() == givenSemester){
+                finalUcs += units.get(i).getName() + " ";
+            }
+        return finalUcs;
+    }
+
+    @GetMapping(path = "/limit",                                //http://localhost:8080/api/java/tester/limit
+    produces= MediaType.APPLICATION_JSON_VALUE)
+    public int calcLimit(){
+        double min = 9.5;                                       //calculates the number of UCs that have grades between 9.5 and 13
+        double max = 13;
+        int numberOutput = 0;
+        for(int i=0; i < units.size(); i++)
+            if(units.get(i).getGrade() > min && units.get(i).getGrade() < max){
+                numberOutput += 1;
+            }
+        return numberOutput;
     }
 
     private Logger logger = LoggerFactory.getLogger(JavaTesterController.class);
