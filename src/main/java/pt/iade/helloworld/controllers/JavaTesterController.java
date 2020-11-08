@@ -39,10 +39,13 @@ public class JavaTesterController {
     @GetMapping(path = "/average",                                //http://localhost:8080/api/java/tester/average
     produces= MediaType.APPLICATION_JSON_VALUE)
     public double calcAverage() {
+        double credits = 0;
         double total = 0;
-        for(int i=0; i < units.size(); i++)
-            total += units.get(i).getGrade();
-        return total/units.size();
+        for(int i=0; i < units.size(); i++) {
+            total += units.get(i).getGrade() * units.get(i).getEcts();
+            credits += units.get(i).getEcts();
+        }
+        return total/credits; 
     }
 
     @GetMapping(path = "/max",                                //http://localhost:8080/api/java/tester/max
